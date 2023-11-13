@@ -9,7 +9,7 @@ import java.io.File
 import javax.inject.Inject
 
 class ExportJsonUsecase @Inject constructor(private val repo: MainRepository) {
-    suspend operator fun invoke(simpleOutput: SimpleOutput,file: File): Flow<Resource<String>> {
-        return repo.exportJson(file,simpleOutput)
+    suspend operator fun invoke(simpleOutput: SimpleOutput): Flow<Resource<String>> {
+        return repo.exportJson(simpleOutput)
     }
 }

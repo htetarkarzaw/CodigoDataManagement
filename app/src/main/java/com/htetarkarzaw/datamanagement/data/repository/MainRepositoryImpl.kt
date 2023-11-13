@@ -1,6 +1,7 @@
 package com.htetarkarzaw.datamanagement.data.repository
 
 import android.content.Context
+import android.os.Environment
 import android.util.Log
 import com.htetarkarzaw.datamanagement.R
 import com.htetarkarzaw.datamanagement.data.Resource
@@ -50,21 +51,25 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override suspend fun exportJson(
-        file: File,
         simpleOutput: SimpleOutput
     ): Flow<Resource<String>> = flow {
+        val fileName = "simple_output.json"
+        val storageDir =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val jsonFile = File(storageDir, fileName)
         val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-        val outputType = Types.newParameterizedType(List::class.java, SimpleOutput::class.java)
-        val jsonAdapter: JsonAdapter<SimpleOutput> = moshi.adapter(outputType)
-        val json = jsonAdapter.toJson(simpleOutput)
+//        val outputType = Types.newParameterizedType(List::class.java, SimpleOutput::class.java)
+//        val jsonAdapter: JsonAdapter<SimpleOutput> = moshi.adapter(outputType)
+        val adapter = moshi.adapter(SimpleOutput::class.java)
+        val json = adapter.toJson(simpleOutput)
         try {
             withContext(Dispatchers.IO) {
-                FileWriter(file).use { writer ->
+                FileWriter(jsonFile).use { writer ->
                     writer.write(json)
                 }
             }
-            Log.e("hakz.repo.createfile", "Your data is saved to ${file.absolutePath}")
-            emit(Resource.Success("Your data is saved to ${file.absolutePath}"))
+            Log.e("hakz.repo.createfile", "Your data is saved to ${jsonFile.absolutePath}")
+            emit(Resource.Success("Your data is saved to ${jsonFile.absolutePath}"))
         } catch (e: Exception) {
             emit(Resource.Error("Something went wrong!"))
         }

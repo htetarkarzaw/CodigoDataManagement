@@ -53,7 +53,7 @@ class MainViewModel @Inject constructor(
         this.alcohol = alcohol
     }
 
-    fun exportJson(file: File) {
+    fun exportJson() {
         _exportJson.value = Resource.Loading()
         viewModelScope.launch {
             val simpleOutPut = SimpleOutput(
@@ -64,7 +64,7 @@ class MainViewModel @Inject constructor(
                 is_daily_exposure = isDailyExposure,
                 is_somke = isSmoke
             )
-            exportJsonUsecase.invoke(simpleOutPut, file).collectLatest {
+            exportJsonUsecase.invoke(simpleOutPut).collectLatest {
                 _exportJson.value = it
             }
         }

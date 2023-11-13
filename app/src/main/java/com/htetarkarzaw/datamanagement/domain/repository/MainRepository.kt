@@ -8,5 +8,5 @@ import java.io.File
 
 interface MainRepository {
     suspend fun getHealthConcernsFromJson(): Flow<Resource<List<HealthConcernVO>>>
-    suspend fun exportJson(file: File,simpleOutput: SimpleOutput): Flow<Resource<String>>
+    suspend fun exportJson(simpleOutput: SimpleOutput): Flow<Resource<String>>
 }
