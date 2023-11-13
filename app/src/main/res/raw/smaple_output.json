@@ -1,0 +1,45 @@
+{
+    "health_concerns": [
+        {
+            "id": 1,
+            "name": "Sleep",
+            "priotity": 1
+        },
+        {
+            "id": 8,
+            "name": "Hair, Nail, Skin",
+            "priotity": 2
+        },
+        {
+            "id": 9,
+            "name": "Weight Loss",
+            "priotity": 3
+        },
+        {
+            "id": 3,
+            "name": "Stress",
+            "priotity": 4
+        }
+        
+    ],
+    "diets": [
+        
+    ],
+    "is_daily_exposure": true,
+    "is_somke": false,
+    "alchol": "0-1",
+    "allergies": [
+        {
+            "id": 1,
+            "name": "Milk"
+        },
+        {
+            "id": 3,
+            "name": "Weat"
+        },
+        {
+            "id": 4,
+            "name": "Nasacort"
+        }
+    ]
+}

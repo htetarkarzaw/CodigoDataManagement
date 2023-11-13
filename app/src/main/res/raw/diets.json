@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Vegan",
+            "tool_tip": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "id": 2,
+            "name": "Vegaterian",
+            "tool_tip": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "id": 3,
+            "name": "Plant based",
+            "tool_tip": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "id": 4,
+            "name": "Pescaterian",
+            "tool_tip": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "id": 5,
+            "name": "Strict Paleo",
+            "tool_tip": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "id": 6,
+            "name": "Ketogenic",
+            "tool_tip": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        }
+    ]
+}

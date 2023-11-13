@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/fragmentWelcome">
+
+    <fragment
+        android:id="@+id/fragmentWelcome"
+        android:name="com.htetarkarzaw.datamanagement.presentation.welcome.WelcomeFragment"
+        android:label="@string/title_welcome"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentHealthConcerns"
+            app:destination="@id/fragmentHealthConcerns" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentHealthConcerns"
+        android:name="com.htetarkarzaw.datamanagement.presentation.health_concerns.HealthConcernsFragment"
+        android:label="@string/title_hc"
+        tools:layout="@layout/fragment_health_concerns">
+        <action
+            android:id="@+id/action_fragmentHealthConcerns_to_fragmentDiet"
+            app:destination="@id/fragmentDiet" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentDiet"
+        android:name="com.htetarkarzaw.datamanagement.presentation.diet.DietFragment"
+        android:label="@string/title_diet"
+        tools:layout="@layout/fragment_diet">
+        <action
+            android:id="@+id/action_fragmentDiet_to_allargyFragment"
+            app:destination="@id/allargyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allargyFragment"
+        android:name="com.htetarkarzaw.datamanagement.presentation.allargy.AllargyFragment"
+        android:label="AllargyFragment"
+        tools:layout="@layout/fragment_allargy">
+        <action
+            android:id="@+id/action_allargyFragment_to_alcoholFragment"
+            app:destination="@id/alcoholFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/alcoholFragment"
+        android:name="com.htetarkarzaw.datamanagement.presentation.alcohol.AlcoholFragment"
+        android:label="AlcoholFragment"
+        tools:layout="@layout/fragment_alcohol" >
+        <action
+            android:id="@+id/action_alcoholFragment_to_fragmentWelcome"
+            app:destination="@id/fragmentWelcome"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/mobile_navigation"/>
+    </fragment>
+</navigation>

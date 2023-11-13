@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">DataManagement</string>
+    <string name="title_welcome">Welcome</string>
+    <string name="title_hc">Health Concerns</string>
+    <string name="title_diet">Diets</string>
+
+
+
+    <string name="retry">Retry</string>
+    <string name="okay">Okay</string>
+    <string name="cancel">Cancel</string>
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="movie_detail">Movie Detail</string>
+    <string name="welcome_to_dailyvita">Welcome to DailyVita</string>
+    <string name="welcome_content">Hello, we are here to make your life healthier and happier</string>
+    <string name="welcome_question">We will ask couple of question to better understand your vitamin need</string>
+    <string name="prioritize">Prioritize</string>
+</resources>
