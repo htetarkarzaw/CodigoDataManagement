@@ -5,13 +5,15 @@ import android.os.Environment
 import android.util.Log
 import com.htetarkarzaw.datamanagement.R
 import com.htetarkarzaw.datamanagement.data.Resource
+import com.htetarkarzaw.datamanagement.data.dto.AllergiesDto
+import com.htetarkarzaw.datamanagement.data.dto.DietsDto
 import com.htetarkarzaw.datamanagement.data.dto.HealthConcernsDto
 import com.htetarkarzaw.datamanagement.domain.repository.MainRepository
+import com.htetarkarzaw.datamanagement.domain.vo.AllergyVO
+import com.htetarkarzaw.datamanagement.domain.vo.DietVO
 import com.htetarkarzaw.datamanagement.domain.vo.HealthConcernVO
 import com.htetarkarzaw.datamanagement.domain.vo.SimpleOutput
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -47,6 +49,59 @@ class MainRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Log.e("getHealthConcernsFromJson", "${e.localizedMessage}")
             emit(Resource.Error("Something went wrong in getHealthConcernsFromJson!"))
+        }
+    }
+
+    override suspend fun getDietsFromJson(): Flow<Resource<List<DietVO>>> = flow {
+        try {
+            val jsonString =
+                context.resources.openRawResource(R.raw.diets).bufferedReader().use {
+                    it.readText()
+                }
+            val moshi: Moshi = Moshi.Builder()
+                .add(KotlinJsonAdapterFactory()).build()
+            val result =
+                moshi.adapter(DietsDto::class.java).fromJson(jsonString)?.data?.map {
+                    DietVO(
+                        id = it.id,
+                        name = it.name,
+                        tool_tip = it.tool_tip
+                    )
+                }
+            if (result.isNullOrEmpty()) {
+                emit(Resource.Error("Something went wrong in getDietsFromJson!"))
+            } else {
+                emit(Resource.Success(result))
+            }
+        } catch (e: Exception) {
+            Log.e("getDietsFromJson", "${e.localizedMessage}")
+            emit(Resource.Error("Something went wrong in getDietsFromJson!"))
+        }
+    }
+
+    override suspend fun getAllergiesFromJson(): Flow<Resource<List<AllergyVO>>> = flow {
+        try {
+            val jsonString =
+                context.resources.openRawResource(R.raw.allergies).bufferedReader().use {
+                    it.readText()
+                }
+            val moshi: Moshi = Moshi.Builder()
+                .add(KotlinJsonAdapterFactory()).build()
+            val result =
+                moshi.adapter(AllergiesDto::class.java).fromJson(jsonString)?.data?.map {
+                    AllergyVO(
+                        id = it.id,
+                        name = it.name
+                    )
+                }
+            if (result.isNullOrEmpty()) {
+                emit(Resource.Error("Something went wrong in getAllergiesFromJson!"))
+            } else {
+                emit(Resource.Success(result))
+            }
+        } catch (e: Exception) {
+            Log.e("getAllergiesFromJson", "${e.localizedMessage}")
+            emit(Resource.Error("Something went wrong in getAllergiesFromJson!"))
         }
     }
 

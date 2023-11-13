@@ -5,15 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.htetarkarzaw.datamanagement.data.Resource
 import com.htetarkarzaw.datamanagement.domain.usecase.ExportJsonUsecase
 import com.htetarkarzaw.datamanagement.domain.vo.AllergyVO
-import com.htetarkarzaw.datamanagement.domain.vo.DietVO
+import com.htetarkarzaw.datamanagement.domain.vo.ExportDietVO
 import com.htetarkarzaw.datamanagement.domain.vo.HealthConcernVO
 import com.htetarkarzaw.datamanagement.domain.vo.SimpleOutput
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,19 +20,19 @@ class MainViewModel @Inject constructor(
     private val exportJsonUsecase: ExportJsonUsecase
 ) : ViewModel() {
     private var healthConcerns: MutableList<HealthConcernVO> = mutableListOf()
-    private var diets: MutableList<DietVO> = mutableListOf()
+    private var diets: MutableList<ExportDietVO> = mutableListOf()
     private var allergies: MutableList<AllergyVO> = mutableListOf()
     private var isDailyExposure: Boolean = false
     private var isSmoke: Boolean = false
     private var alcohol: String = ""
 
-    private val _exportJson = MutableStateFlow<Resource<String>>(Resource.Nothing())
-    val exportJson get() = _exportJson.asStateFlow()
+    private val _exportJson = MutableSharedFlow<Resource<String>>()
+    val exportJson get() = _exportJson.asSharedFlow()
     fun setHealthConcerns(list: MutableList<HealthConcernVO>) {
         healthConcerns = list
     }
 
-    fun setDiets(list: MutableList<DietVO>) {
+    fun setDiets(list: MutableList<ExportDietVO>) {
         diets = list
     }
 
@@ -54,8 +53,8 @@ class MainViewModel @Inject constructor(
     }
 
     fun exportJson() {
-        _exportJson.value = Resource.Loading()
         viewModelScope.launch {
+            _exportJson.emit(Resource.Loading())
             val simpleOutPut = SimpleOutput(
                 alchol = alcohol,
                 allergies = allergies,
@@ -65,7 +64,7 @@ class MainViewModel @Inject constructor(
                 is_somke = isSmoke
             )
             exportJsonUsecase.invoke(simpleOutPut).collectLatest {
-                _exportJson.value = it
+                _exportJson.emit(it)
             }
         }
     }

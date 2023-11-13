@@ -7,6 +7,7 @@
     android:background="@color/colorPrimary"
     android:padding="16dp"
     tools:context=".presentation.diet.DietFragment">
+
     <TextView
         android:id="@+id/tvSelect"
         android:layout_width="match_parent"
@@ -16,6 +17,47 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/colorNavyBlueDark"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvSelect">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgAllergies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="8dp" />
+
+        <EditText
+            android:id="@+id/edAllergy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cgAllergies"
+            android:hint="specific allergy"
+            android:imeOptions="actionDone"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <View
+            android:id="@+id/spacer"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/edAllergy"
+            android:background="@color/md_blue_grey_500" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAllergy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spacer"
+            android:layout_marginTop="8dp" />
+    </RelativeLayout>
+
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"

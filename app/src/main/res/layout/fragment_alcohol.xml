@@ -7,6 +7,7 @@
     android:background="@color/colorPrimary"
     android:padding="16dp"
     tools:context=".presentation.diet.DietFragment">
+
     <TextView
         android:id="@+id/tvSelect"
         android:layout_width="match_parent"
@@ -16,13 +17,100 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/colorNavyBlueDark"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rgDailyExposure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvSelect">
+
+        <RadioButton
+            android:id="@+id/rbDEYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+
+        <RadioButton
+            android:id="@+id/rbDENo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="No" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvSmoke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Do you current smoke (tobacco or marijuana)."
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/colorNavyBlueDark"
+        app:layout_constraintTop_toBottomOf="@id/rgDailyExposure" />
+
+    <RadioGroup
+        android:id="@+id/rgSmoke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvSmoke">
+
+        <RadioButton
+            android:id="@+id/rbSmokeYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+
+        <RadioButton
+            android:id="@+id/rbSmokeNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="No" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvAlcohol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="On average, how many alcoholic beverages do you have in a week"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/colorNavyBlueDark"
+        app:layout_constraintTop_toBottomOf="@id/rgSmoke" />
+
+    <RadioGroup
+        android:id="@+id/rgAlcohol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvAlcohol">
+
+        <RadioButton
+            android:id="@+id/rbAlcohol1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="0-1" />
+
+        <RadioButton
+            android:id="@+id/rbAlcohol2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2-5" />
+
+        <RadioButton
+            android:id="@+id/rbAlcohol3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5+" />
+    </RadioGroup>
+
     <Button
         android:id="@+id/btnExport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:padding="8dp"
         android:backgroundTint="@color/colorSecondary"
+        android:padding="8dp"
         android:text="Get my personalized vitamin"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"

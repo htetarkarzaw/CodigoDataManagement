@@ -21,9 +21,10 @@ class SuccessDialog(
         setCancelable(false)
     }
 
-    fun setUpDialog(message: String) {
+    fun setUpDialog(message: String,onClickOkay:()->Unit) {
         binding.tvMessage.text = message
         binding.btnOkay.setOnClickListener {
+            onClickOkay()
             dismiss()
         }
         show()
