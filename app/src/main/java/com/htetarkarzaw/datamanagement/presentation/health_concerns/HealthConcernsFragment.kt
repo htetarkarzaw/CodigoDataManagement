@@ -2,6 +2,7 @@ package com.htetarkarzaw.datamanagement.presentation.health_concerns
 
 import android.content.res.ColorStateList
 import android.util.Log
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -40,8 +41,6 @@ class HealthConcernsFragment :
         }, onItemReorder = { fromPosition, toPosition ->
             viewModel.changePosition(fromPosition, toPosition)
         })
-
-
     }
 
     override fun observe() {
@@ -100,9 +99,8 @@ class HealthConcernsFragment :
                 chip.checkedIcon = null
                 chip.chipBackgroundColor = colorStateList
                 chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                chip.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
-                        // If the checked chip count is less than the maximum, allow the chip to be checked
+                chip.setOnClickListener { v ->
+                    if (chip.isChecked) {
                         if (checkedChipCount < 5) {
                             checkedChipCount++
                             viewModel.selectHealthConcerns(it)
@@ -111,7 +109,6 @@ class HealthConcernsFragment :
                             chip.isChecked = false
                         }
                     } else {
-                        // If a chip is unchecked, decrement the checked chip count
                         checkedChipCount--
                         viewModel.unselectHealthConcern(it)
                     }
@@ -132,11 +129,20 @@ class HealthConcernsFragment :
         mItemTouchHelper?.attachToRecyclerView(binding.rvHealthC)
         binding.btnNext.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
-                sharedModel.setHealthConcerns(
-                    viewModel.selectedHC.first().toMutableList()
-                )
-                withContext(Dispatchers.Main) {
-                    findNavController().navigate(R.id.action_fragmentHealthConcerns_to_fragmentDiet)
+                val result = viewModel.selectedHC.first().toMutableList()
+                if (result.isNotEmpty()) {
+                    sharedModel.setHealthConcerns(
+                        result
+                    )
+                    withContext(Dispatchers.Main) {
+                        findNavController().navigate(R.id.action_fragmentHealthConcerns_to_fragmentDiet)
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please select at least one!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
